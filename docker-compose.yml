@@ -38,6 +38,19 @@ services:
       - "8080:8080"
     networks:
       - dbnet
+  
+  jupyterlab:
+    image: jupyter/datascience-notebook:latest
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - POSTGRES_HOST=postgresql
+    ports:
+      - "8888:8888"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    networks:
+      - dbnet
     
 
 volumes:
