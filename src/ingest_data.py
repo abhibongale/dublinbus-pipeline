@@ -51,7 +51,7 @@ def load_data(username, password, port, ipaddress, database_name, data):
     try:
         # connection engine = create_engine('postgresql://username:password@localhost:5432/mydatabase')
         engine = create_engine(f'postgresql://{username}:{password}@{ipaddress}:{port}/{database_name}')
-        df.to_sql('TripUpdates', engine, if_exists='append', index=False)
+        data.to_sql('TripUpdates', engine, if_exists='append', index=False)
         print(f' TripUpdates table in database {database_name}')
     except Exception as e:
         print(f'failed to write dataframe to {database_name}: {e}')
@@ -71,6 +71,6 @@ if __name__ == "main":
         'Cache-Control': 'no-cache',
         'x-api-key': conn_config['api']
     }
-    postgres_config = config.read_connection(path="./config/connection.ini", section="postgresql")
+    postgres_config = read_connection(path="./config/connection.ini", section="postgresql")
     
     ingest_workflow(url, conn_config, hdr, postgres_config)
