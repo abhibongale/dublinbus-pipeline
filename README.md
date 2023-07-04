@@ -3,6 +3,9 @@ dublinbus pipeline project is a ETL pipeline project for dublinbus.
 
 ## Visuals
 
+### DB Schema
+![dbSchema.png](dbSchema.png)
+
 ## Installation
 
 ## Usage
