@@ -4,7 +4,7 @@ dublinbus pipeline project is a ETL pipeline project for dublinbus.
 ## Visuals
 
 ### DB Schema
-![dbSchema.png](https://github.com/abhibongale/dublinbus-pipeline/dbSchema.png)
+![dbSchema.png](dbSchema.png)
 
 ## Installation
 
