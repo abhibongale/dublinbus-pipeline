@@ -7,6 +7,7 @@ from configparser import ConfigParser
 
 from config import read_connection
 
+@task
 def extract_data(url, hdr):
     try:
         req = urllib.request.Request(url, headers=hdr)
@@ -18,7 +19,7 @@ def extract_data(url, hdr):
         
     return response.read()
 
-
+@task
 def transform_data(raw_data):
     # Decode UTF-8 bytes to Unicode, and convert single quotes 
     # to double quotes to make it valid JSON
@@ -45,6 +46,7 @@ def transform_data(raw_data):
     return df
 
 # load the dataframe into table TripUpdates
+@task
 def load_data(username, password, port, ipaddress, database_name, data):
     # create database
     #create_db(database_name)
@@ -57,6 +59,7 @@ def load_data(username, password, port, ipaddress, database_name, data):
         print(f'failed to write dataframe to {database_name}: {e}')
         raise e
 
+@flow(name="dublinbus_flow")
 def ingest_workflow(url, hdr, postgres_config):
     raw_data = extract_data(url, hdr)
     
