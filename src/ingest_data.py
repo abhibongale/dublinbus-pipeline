@@ -18,7 +18,7 @@ def extract_data(url, hdr):
         raise e
         
     return response.read()
-
+  
 @task
 def transform_data(raw_data):
     # Decode UTF-8 bytes to Unicode, and convert single quotes 
@@ -66,6 +66,7 @@ def ingest_workflow(url, hdr, postgres_config):
     data = transform_data()
     load_data(postgres_config['username'], postgres_config['password'], 
     postgres_config['port'], postgres_config['ipaddress'], postgres_config['database'], data)
+
 
 if __name__ == "main":
     url = "https://api.nationaltransport.ie/gtfsr/v2/gtfsr?format=json"
