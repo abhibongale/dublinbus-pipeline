@@ -1,5 +1,4 @@
-src/config/connection.ini
-src/__pycache__
-src/.ipynb_checkpoints/
-src/config/
+config/config.ini
+pipeline/__pycache__
+pipeline/.ipynb_checkpoints/
 notebooks/.ipynb_checkpoints/
