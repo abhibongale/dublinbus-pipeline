@@ -1,6 +1,6 @@
 import unittest
 import configparser
-from dublinbus_pipeline/config_reader import ConfigReader
+from config_reader import ConfigReader
 
 class TestReadConfig(unittest.TestCase):
 
