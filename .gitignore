@@ -3,3 +3,4 @@ pipeline/__pycache__
 pipeline/.ipynb_checkpoints/
 notebooks/.ipynb_checkpoints/
 tests/unittest/__pycache__
+.env

@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 class DataTransformer:
     """
@@ -19,14 +20,14 @@ class DataTransformer:
         - data: transformed data in a table format (dataframe)
         """
         if not isinstance(data, pd.DataFrame):
-            df = pd.json_normalize(data)
+            df = json.loads(data)
+            df = pd.json_normalize(df['entity'])
         else:
             df = data
 
-        self._explode_lists(df)
-        self._expand_dicts(df)
-        self._drop_empty_columns(df)
-
+        df = self._explode_lists(df)
+        df = self._expand_dicts(self._expand_dicts(df))
+        df = self._drop_empty_columns(df)
         return df
 
     def _explode_lists(self, df):
@@ -39,6 +40,7 @@ class DataTransformer:
         for col in df.columns:
             if df[col].apply(lambda x: isinstance(x, list)).any():
                 df = df.explode(col)
+        return df
 
     def _expand_dicts(self, df):
         """
@@ -57,6 +59,7 @@ class DataTransformer:
                         "time": f"{col}_time",
                         "uncertainty": f"{col}_uncertainty"
                     })], axis=1)
+        return df
 
     def _drop_empty_columns(self, df):
         """
@@ -67,3 +70,4 @@ class DataTransformer:
         """
         cols_to_drop = df.columns[df.isnull().all()]
         df = df.drop(cols_to_drop, axis=1)
+        return df
